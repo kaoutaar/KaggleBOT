@@ -9,8 +9,6 @@ import os
 from lxml import html
 
 
-
-
 """
 we use two techniques to get data from a competition webpage:
 -API (when possible)
@@ -22,7 +20,6 @@ This script take few minutes to complete executing, and stores data in folders i
 
 
 api = KaggleApi()
-api.config= "/mnt/c/Users/kaout/.kaggle/kaggle.json"
 api.authenticate()
 
 options = webdriver.ChromeOptions()
@@ -91,7 +88,6 @@ def get_one_discussion():
     xpath = "//*[@id=\"site-content\"]/div[2]/div/div/div[6]/div/div/div[1]/div[1]/div[3]/div/div"
     elmts = tree.xpath(xpath)
     text = elmts[0].text_content()
-    # text = disc_text.find(name="div", class_="sc-gKcDQK fWFEWC").text
     review = f"-Discussion title : {title}\n-Text: {text}\n\n-Author: {name} ({votes} votes) = .\n\n-Comments:\n"
     page = page + review
 
@@ -99,7 +95,7 @@ def get_one_discussion():
     for com in disc_comments:
         try:
             name = com.find(name="a")["aria-label"]
-            votes = com.find_all(name="button")[1].string #############""
+            votes = com.find_all(name="button")[1].string 
             xpath = "div/div/div[1]/div[3]/div/div"
             tree = html.fromstring(com)
             elmts = tree.xpath(xpath)

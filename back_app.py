@@ -4,10 +4,13 @@ from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from llama_cpp import Llama
 from fastapi import FastAPI
 import json
+import os
 from pydantic import BaseModel
+import utils
+
+
 
 app = FastAPI()
-
 
 def prep_faiss_db(comp_id, comp_url):
     model_name = "BAAI/bge-base-en"
@@ -17,11 +20,11 @@ def prep_faiss_db(comp_id, comp_url):
     embed_model = HuggingFaceBgeEmbeddings(model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
     global db
     try:
-        db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model, allow_dangerous_deserialization=True)
+        db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model)#, allow_dangerous_deserialization=True)
     except RuntimeError as e:
             if "No such file or directory" in str(e):
                 faissdb.construct_db(comp_url, comp_id, embed_model) # may takes few minutes
-                db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model, allow_dangerous_deserialization=True)
+                db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model)#, allow_dangerous_deserialization=True)
 
 
 class HTTP_PACK(BaseModel):
@@ -37,6 +40,8 @@ async def aprep_faiss_db(http_pack:HTTP_PACK):
 
 
 def resp_query(query):
+    if os.path.exists("mistral_path")==False:
+        utils.load_model()
     with open("./mistral_path") as f:
         model_path = json.load(f)
     model = Llama(model_path=model_path, max_tokens=1000, n_ctx=4048)

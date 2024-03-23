@@ -34,10 +34,11 @@ def construct_db(comp, comp_id, embed_model):
 
     print("constructing faiss db")
     db = FAISS.from_documents(docs, embed_model)
-    db.save_local(f"faiss_indexes/faiss_index_{comp_id}") # in disk
+    db.save_local(f"faiss_indexes/faiss_index_{comp_id}")
     print("DB is constructed and ready to be used!")
 
 
+#example
 if __name__ == "__main__":
     from langchain_community.embeddings import HuggingFaceBgeEmbeddings
     comp = "https://www.kaggle.com/competitions/home-credit-credit-risk-model-stability"

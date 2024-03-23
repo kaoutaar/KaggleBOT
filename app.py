@@ -14,7 +14,6 @@ if "comp_id" not in st.session_state:
 @st.cache_data
 def get_comp_info():
     api = KaggleApi()
-    api.config= "/mnt/c/Users/kaout/.kaggle/kaggle.json"
     api.authenticate()
     list_competitions = api.competitions_list(group=None, #['general', 'entered', 'inClass']
                                         category=None, #['all', 'featured', 'research', 'recruitment', 'gettingStarted','masters', 'playground']
