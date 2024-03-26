@@ -23,4 +23,8 @@ A bot that answers your questions about kaggle competitions, choose a competitti
 
 # Under the hood:
 
-   
+after picking a competition, all related data including discussion and notebook sections get loaded and stored in specific locations.
+we then split these data to small chunks and save the index in faiss vectorstore.
+we use mistral-7b-gguf model, it can run totally on your cpu at the cost of being slow, the model is served using a light weight API, we use fastAPI framework
+the user question is sent through http over your local network to the API, when the answer is ready, it gets sent back to the app.
+
