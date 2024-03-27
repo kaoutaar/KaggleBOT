@@ -28,5 +28,4 @@ we then split these data to small chunks and save the index in faiss vectorstore
 we use mistral-7b-gguf model, it can run totally on your cpu at the cost of being slow, the model is served using a light weight API, we use fastAPI framework
 the user question is sent through http over your local network to the API, when the answer is ready, it gets sent back to the app.
 
-
-
+![arch](https://github.com/kaoutaar/KaggleBOT/assets/51215027/b6f4d3e2-c65c-42cb-9aec-5d6a94245dd1)
