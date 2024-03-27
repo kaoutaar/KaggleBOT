@@ -32,5 +32,5 @@ we use mistral-7b-gguf model, which can totally run on cpu at the cost of being 
 
 # limitation:
 
-with 8gb RAM, the model takes about 90 seconds to generate a full answer.
+with 8gb RAM, the model takes about 120 seconds to generate a full answer.
 
