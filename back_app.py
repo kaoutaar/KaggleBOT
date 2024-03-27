@@ -7,6 +7,7 @@ import json
 import os
 from pydantic import BaseModel
 import utils
+import platform
 
 
 
@@ -20,11 +21,17 @@ def prep_faiss_db(comp_id, comp_url):
     embed_model = HuggingFaceBgeEmbeddings(model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs)
     global db
     try:
-        db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model)#, allow_dangerous_deserialization=True)
+        if platform.system() =="Linux":
+            db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model, allow_dangerous_deserialization=True)
+        else:
+            db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model)
     except RuntimeError as e:
             if "No such file or directory" in str(e):
                 faissdb.construct_db(comp_url, comp_id, embed_model) # may takes few minutes
-                db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model)#, allow_dangerous_deserialization=True)
+                if platform.system() =="Linux":
+                    db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model, allow_dangerous_deserialization=True)
+                else:
+                    db = FAISS.load_local(f"faiss_indexes/faiss_index_{comp_id}", embed_model)
 
 
 class HTTP_PACK(BaseModel):

@@ -36,7 +36,7 @@ def construct_db(comp, comp_id, embed_model):
     db = FAISS.from_documents(docs, embed_model)
     db.save_local(f"faiss_indexes/faiss_index_{comp_id}")
     print("DB is constructed and ready to be used!")
-
+ 
 
 #example
 if __name__ == "__main__":
