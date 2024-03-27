@@ -1,6 +1,6 @@
 # Kagil BOT
 # 
-A bot that answers your questions about kaggle competitions, choose a competittion in the barlist, let the backend program gather the necessary data from kaggle website, and here you go! the bot is ready to receive your questions.
+A bot that answers your questions about kaggle competitions, choose a competittion in the listBOX, let the backend program gather the necessary data from kaggle website, and here you go! the bot is ready to receive your questions.
 
 <br style=“line-height:10;”> 
 
@@ -12,22 +12,22 @@ A bot that answers your questions about kaggle competitions, choose a competitti
 
 # How to run:
 1. clone the repo
-2. download the kaggle json file and copy it to your local directory ~/.kaggle
+2. download the kaggle json file containing your credentials and copy it to your local directory ~/.kaggle
 * ### on Windows:
-  open 2 separate cmd terminals, cd to the repo directory and run
+  pip install the requirements and open 2 separate cmd terminals, cd to the repo directory and run:
   * cmd1: ``` python back_app.py ```
   * cmd2: ``` streamlit run app.py ```
  
 * ### on WSL:
-  in a shell , cd to the repo directory and run  ``` bash start.sh ```
+  in a shell terminal, cd to the repo directory and run:  ``` bash start.sh ```
+
 
 # Under the hood:
 
-
 ![arch](https://github.com/kaoutaar/KaggleBOT/assets/51215027/586bb542-e713-4985-8a01-033391ddd8ee)
 
-after picking a competition, all related data including discussion and notebook sections get loaded then splitted and stored in faiss vectorstore.
-we use mistral-7b-gguf model, which can run totally on cpu at the cost of being slow, the model is served using a light weight API.
+after picking a competition, all related data including discussions and notebooks sections get loaded then splitted and stored in faiss vectorstore.
+we use mistral-7b-gguf model, which can totally run on cpu at the cost of being slow, the model is served using a light weight API.
 
 
 # limitation:
